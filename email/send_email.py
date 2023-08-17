@@ -4,9 +4,9 @@ from email.message import EmailMessage
 
 subject = "Email From Python"
 body = "This is a test email from python!"
-sender_email = "drendon3@mail.pima.edu"
-receiver_email = "danielaztec7@gmail.com"
-password = "Alejandro10"
+sender_email = ""
+receiver_email = ""
+password = ""
 
 message = EmailMessage()
 message["From"] = sender_email
