@@ -4,7 +4,7 @@ views = Blueprint(__name__, "views")
 
 @views.route("/")
 def home():
-    return render_template("index.html", name="Daniel")
+    return render_template("index.html", name="Joe")
 
 @views.route("/profile")
 def profile():
@@ -14,7 +14,7 @@ def profile():
 
 @views.route("/json")
 def get_json():
-    return jsonify({'name': 'Daniel', 'coolness': 10})
+    return jsonify({'name': 'Daniel'})
 
 @views.route("/data")
 def get_data():
