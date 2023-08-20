@@ -2,6 +2,7 @@
 
 import random
 import time
+import sys
 
 def create_deck():
     # Creates the deck
@@ -154,6 +155,9 @@ def main():
     #   GAME LOGIC
 
     while True:
+        if not players:
+            print("All players have been removed to due lack of balance.\n")
+            sys.exit()
         user_input = input("Press enter to play or enter q to exit and cash out: ")
         if user_input == '':
             # Print Player Balances
@@ -197,6 +201,16 @@ def main():
                     else:
                         player_amounts[player]["bet"] = 0
                         print(f"{player} has lost the bet, balance: ${player_amounts[player]['balance']}\n")
+                # Remove players that have less balance than min bet amount
+                players_to_remove = []
+                for player in player_amounts:
+                    if player_amounts[player]['balance'] < 50:
+                        print(f"{player}'s balance is below the min bet, therefor they are out.\n")
+                        players_to_remove.append(player)
+                for player in players_to_remove:
+                    del players[player]
+                    del player_amounts[player]
+                
 
             # Dealer didn't have blackjack, game goes on
             else:
@@ -264,7 +278,6 @@ def main():
                                 if dealer['ace_count'] > 0:
                                     dealer['total_value'] -= 10
                                     dealer['ace_count'] -= 1
-                                    continue
                                 else:
                                     print("Dealer busted.\n")
                                     break
@@ -303,13 +316,22 @@ def main():
                         print(f"{player} and dealer tied, balance: ${player_amounts[player]['balance']}\n")
                 
                     
-                # Check if anyone's balance is less than the min bet ($50) and remove them from players dict
-
+                
 
                 # Reset players and dealer dicts back to default
                 for player in players:
                     players[player] = {"cards": [], "total_value": 0, "blackjack": False, "ace_count": 0}
                 dealer = {"cards": [], "total_value": 0, "ace_count": 0, "blackjack": False}
+                # Check if anyone's balance is less than the min bet ($50) and remove them from players dict
+                players_to_remove = []
+                for player in player_amounts:
+                    if player_amounts[player]['balance'] < 50:
+                        print(f"{player}'s balance is below the min bet, therefor they are out.\n")
+                        players_to_remove.append(player)
+                for player in players_to_remove:
+                    del players[player]
+                    del player_amounts[player]
+                
 
         elif user_input == 'q':
             for player in player_amounts:
